@@ -369,26 +369,58 @@ visitors &lt;- read_csv(&quot;data/UK-visitor-numbers.csv&quot;)</code></pre>
 <div id="question-1" class="section level2">
 <h2>Question 1</h2>
 <p><em>How many tourist attractions are there in the data set?</em></p>
-<pre class="r"><code>visitors %&gt;% count()</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##       n
-##   &lt;int&gt;
-## 1   348</code></pre>
+<pre class="r"><code>visitors %&gt;% head(n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 6
+##    attraction                             n_2021 n_2022 admission setting region
+##    &lt;chr&gt;                                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; 
+##  1 1066 Battle of Hastings, Abbey and Ba…  91690 108113 Members   O       South…
+##  2 Abbey House Museum                      21369  45118 Charged   I       Yorks…
+##  3 Abertarff House                            NA   7296 Free      I       Scotl…
+##  4 Alice Holt Forest                          NA 340973 Free      O       South…
+##  5 Alloa Tower                              4574   5965 Members   I       Scotl…
+##  6 Anglesey Abbey                         310940 345209 Members   M       East …
+##  7 Anne Hathaway&#39;s Cottage                 23199  42294 Charged   M       West …
+##  8 Arbeia South Sheilds Roman Fort            NA  19568 Free      M       North…
+##  9 Ashmolean Museum Oxford                212497 728006 Free      I       South…
+## 10 Aston Hall                              17789  37490 Members   M       West …</code></pre>
 <div id="exercise-a." class="section level3">
 <h3>Exercise a.</h3>
 <p><em>Create a frequency table of the number of tourist attractions in
 the data set by <code>region</code>.</em></p>
-<pre class="r"><code># Delete the comment &#39;#&#39; symbol at the start of the next line and complete the code. 
-
-#visitors %&gt;% count(_____)</code></pre>
+<pre class="r"><code>visitors %&gt;% count(region)</code></pre>
+<pre><code>## # A tibble: 12 × 2
+##    region                       n
+##    &lt;chr&gt;                    &lt;int&gt;
+##  1 East Midlands                9
+##  2 East of England             26
+##  3 London                      39
+##  4 North East                  25
+##  5 North West                  21
+##  6 Northern Ireland             9
+##  7 Scotland                    97
+##  8 South East                  34
+##  9 South West                  30
+## 10 Wales                        2
+## 11 West Midlands               35
+## 12 Yorkshire and the Humber    21</code></pre>
 </div>
 <div id="exercise-b." class="section level3">
 <h3>Exercise b.</h3>
 <p><em>Create a frequency table by <code>admission</code> and
 <code>setting</code>.</em></p>
-<pre class="r"><code># Delete the comment &#39;#&#39; symbol at the start of the next line and complete the code.
-
-#visitors %&gt;% count(_____, _____)</code></pre>
+<pre class="r"><code>visitors %&gt;% count(admission,setting)</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   admission setting     n
+##   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt;
+## 1 Charged   I          21
+## 2 Charged   M          12
+## 3 Charged   O           5
+## 4 Free      I          77
+## 5 Free      M           8
+## 6 Free      O          43
+## 7 Members   I          23
+## 8 Members   M         106
+## 9 Members   O          53</code></pre>
 </div>
 </div>
 <div id="question-2" class="section level2">
@@ -424,9 +456,22 @@ the data set by <code>region</code>.</em></p>
 <div id="exercise-c." class="section level3">
 <h3>Exercise c.</h3>
 <p><em>What are the top 10 most visited attractions in 2021?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  arrange(____(____)) %&gt;%
-#  head(n = ____)</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+arrange(desc(n_2021)) %&gt;%
+head(n = 10)</code></pre>
+<pre><code>## # A tibble: 10 × 6
+##    attraction                             n_2021 n_2022 admission setting region
+##    &lt;chr&gt;                                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; 
+##  1 The Crown Estate, Windsor Great Park   5.40e6 5.64e6 Free      O       South…
+##  2 Royal Botanic Gardens Kew              1.96e6 1.96e6 Members   M       London
+##  3 Natural History Museum (South Kensing… 1.57e6 4.65e6 Free      I       London
+##  4 RHS Garden Wisley                      1.41e6 1.49e6 Members   O       South…
+##  5 The British Museum                     1.33e6 4.10e6 Free      I       London
+##  6 Tate Modern                            1.16e6 3.88e6 Free      I       London
+##  7 Somerset House                         9.85e5 2.35e6 Free      M       London
+##  8 Science Museum                         9.56e5 2.33e6 Free      I       London
+##  9 Jeskyns Community Woodland             8.79e5 4.47e5 Free      O       South…
+## 10 V&amp;A South Kensington                   8.58e5 2.37e6 Free      I       London</code></pre>
 </div>
 </div>
 <div id="question-4" class="section level2">
@@ -441,15 +486,23 @@ the data set by <code>region</code>.</em></p>
 <div id="exercise-d." class="section level3">
 <h3>Exercise d.</h3>
 <p><em>Which attraction had exactly 565,772 visitors in 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% filter(___ == ____)</code></pre>
+<pre class="r"><code>visitors %&gt;% filter(n_2022 == 565772)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   attraction                        n_2021 n_2022 admission setting region    
+##   &lt;chr&gt;                              &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     
+## 1 Knowsley Safari and Knowsley Hall     NA 565772 Members   M       North West</code></pre>
 </div>
 <div id="exercise-e." class="section level3">
 <h3>Exercise e.</h3>
 <p><em>How many attraction had more than 1 million visitors in
 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  filter(____) %&gt;%
-#  count()</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  filter(n_2022 &gt; 1000000) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    22</code></pre>
 </div>
 </div>
 <div id="question-5" class="section level2">
@@ -474,20 +527,28 @@ visitors in 2022?</em></p>
 <h3>Exercise f.</h3>
 <p><em>How many attractions had between 50,000 and 100,000 visitors in
 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ____(
-#    ______,
-#    ______ ) %&gt;%
-#  count()</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  filter(
+ 50000 &lt; n_2022,
+ n_2022 &lt;100000 ) %&gt;%
+ count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    50</code></pre>
 </div>
 <div id="exercise-g." class="section level3">
 <h3>Exercise g.</h3>
 <p><em>How many regions have more than 50 tourist attraction in the data
 set? (Hint: You will need to tabulate the data before
 filtering.)</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  _____(region) %&gt;%
-#  filter(______)</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+ count(region) %&gt;%
+ filter(n&gt;50)</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   region       n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Scotland    97</code></pre>
 </div>
 </div>
 </div>
